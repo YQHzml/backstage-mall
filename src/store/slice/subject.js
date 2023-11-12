@@ -11,14 +11,14 @@ const initialState = {
   loading: false,
   menu: [],
   //面包屑数据
-  tab_list: [{ key: "home", path: "/home" }],
+  tab_list: [],
   // 商品数量
   goods_list: [],
   // 订单数据
   order_data: [],
   // 折线图数据
   line_charts: [],
-  // 树状图数据
+  // 柱状图数据
   tree_charts: [],
   // 饼图数据
   pie_charts: [],
@@ -56,7 +56,7 @@ export const get_line_charts = createAsyncThunk(
   }
 );
 
-// 获取树状图数据
+// 获取柱状图数据
 export const get_tree_charts = createAsyncThunk(
   "get/treeCharts",
   async (action, state) => {
@@ -119,7 +119,7 @@ export const subjectSlice = createSlice({
         state.line_charts = res.payload;
       })
       .addCase(get_tree_charts.fulfilled, (state, res) => {
-        state.get_tree_charts = res.payload;
+        state.tree_charts = res.payload;
       })
       .addCase(get_pie_charts.fulfilled, (state, res) => {
         state.pie_charts = res.payload;

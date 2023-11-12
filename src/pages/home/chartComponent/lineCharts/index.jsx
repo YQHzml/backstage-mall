@@ -57,8 +57,8 @@ function LineCharts() {
   }, [dispatch, lineChartData]);
 
   return (
-    <Card hoverable style={{ padding: 20 }}>
-      <div ref={chartContainerRef} style={{ width: 1200, height: 240 }}></div>
+    <Card hoverable style={{ height: 200 }}>
+      <div ref={chartContainerRef} style={{ width: 1200, height: 200 }}></div>
     </Card>
   );
 }

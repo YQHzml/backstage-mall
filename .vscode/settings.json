@@ -4,5 +4,6 @@
         "echarts",
         "hoverable",
         "reduxjs"
-    ]
+    ],
+    "eslint.nodeEnv": "development"
 }

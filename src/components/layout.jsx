@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-
 import Header from "./header";
 import Sider from "./sider";
 import BreadCb from "./breadcrumb";

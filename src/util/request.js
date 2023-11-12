@@ -43,7 +43,7 @@ export function getTabList() {
   });
 }
 
-// 获取面包屑数据
+// 获取商品数据
 export function getGoods() {
   return new Promise(async (resolve, reject) => {
     const res = await axios.get("/goodsList");
@@ -71,7 +71,7 @@ export function getLineCharts() {
 export function getTreeCharts() {
   return new Promise(async (resolve, reject) => {
     const res = await axios.get("/treeCharts");
-    resolve(res.data.data);
+    resolve(res.data);
   });
 }
 
@@ -79,6 +79,6 @@ export function getTreeCharts() {
 export function getPieCharts() {
   return new Promise(async (resolve, reject) => {
     const res = await axios.get("/pieCharts");
-    resolve(res.data.data);
+    resolve(res.data);
   });
 }
