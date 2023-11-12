@@ -11,7 +11,7 @@ function PieCharts() {
   const chartContainerRef = useRef();
   const dispatch = useAppDispatch();
   const pieChartData = useAppSelector(select_pie_charts);
-
+  console.log(pieChartData.data);
   const chartOptions = useMemo(() => {
     if (
       !pieChartData ||
@@ -22,6 +22,10 @@ function PieCharts() {
     }
 
     return {
+      title: {
+        text: "Mobile phone sales",
+        left: "center",
+      },
       tooltip: {
         trigger: "item",
       },
@@ -34,8 +38,19 @@ function PieCharts() {
         "#39c362",
         "#3ed1cf",
       ],
+      legend: {
+        orient: "veal",
+        left: "left",
+      },
       series: [
         {
+          name: [
+            pieChartData.data.map((item) => {
+              return {
+                name: item.name,
+              };
+            }),
+          ],
           data: pieChartData.data,
           type: "pie",
         },
@@ -61,7 +76,7 @@ function PieCharts() {
     }
   }, [dispatch, pieChartData]);
   return (
-    <Card hoverable style={{ height: 330, marginTop: 15 }}>
+    <Card hoverable style={{ height: 335, marginTop: 15 }}>
       <div ref={chartContainerRef} style={{ height: 300, width: 580 }}></div>
     </Card>
   );

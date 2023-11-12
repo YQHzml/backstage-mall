@@ -91,7 +91,7 @@ function TreeCharts() {
   }, [dispatch, treeChartData]);
 
   return (
-    <Card hoverable style={{ height: 330, marginTop: 15, marginRight: 20 }}>
+    <Card hoverable style={{ height: 335, marginTop: 15, marginRight: 20 }}>
       <div ref={chartContainerRef} style={{ height: 300, width: 580 }}></div>
     </Card>
   );
