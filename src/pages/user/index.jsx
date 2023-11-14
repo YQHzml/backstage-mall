@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Form,
   Table,
@@ -7,6 +7,8 @@ import {
   Modal,
   Input,
   DatePicker,
+  Typography,
+  InputNumber,
 } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -17,6 +19,41 @@ import {
 import { Random } from "mockjs";
 import moment from "moment";
 
+const EditableCell = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  record,
+  index,
+  children,
+  ...restProps
+}) => {
+  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{
+            margin: 0,
+          }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
+
 function User() {
   const dispatch = useAppDispatch();
   const user_list = useAppSelector(select_user_list);
@@ -24,22 +61,25 @@ function User() {
   const [form] = Form.useForm();
   const [isModal, setIsModal] = useState(false);
 
-  const user_list_data = user_list.map((item) => {
-    return {
+  const [editingKey, setEditingKey] = useState("");
+  const isEditing = (record) => record.key === editingKey;
+
+  const user_list_data = useMemo(() => {
+    return user_list.map((item) => ({
       key: item.id,
       name: item.name,
       sex: item.sex === "0" ? "男" : "女",
       age: item.age,
       birth: item.birth,
       address: item.address,
-    };
-  });
+    }));
+  }, [user_list]);
 
   const [data, setData] = useState(user_list_data);
 
   useEffect(() => {
     setData(user_list_data);
-  }, [user_list]);
+  }, [user_list_data]);
 
   useEffect(() => {
     if (!user_list || user_list.length === 0) {
@@ -83,46 +123,136 @@ function User() {
     form.resetFields();
   };
 
+  const edit = (record) => {
+    form.setFieldsValue({
+      name: "",
+      sex: "",
+      age: "",
+      birth: "",
+      address: "",
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancels = () => {
+    setEditingKey("");
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...data];
+      const index = newData.findIndex((item) => key === item.key);
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setData(newData);
+        setEditingKey("");
+      } else {
+        newData.push(row);
+        setData(newData);
+        setEditingKey("");
+      }
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
+
   const defaultColumns = [
     {
       title: "name",
       dataIndex: "name",
       width: "15%",
+      editable: true,
     },
     {
       title: "sex",
       dataIndex: "sex",
       width: "10%",
+      editable: true,
     },
     {
       title: "age",
       dataIndex: "age",
       width: "10%",
+      editable: true,
+      sorter: (a, b) => a.age - b.age,
     },
     {
       title: "birth",
       dataIndex: "birth",
       width: "15%",
+      editable: true,
     },
     {
       title: "address",
       dataIndex: "address",
       width: "30%",
+      editable: true,
     },
     {
-      title: "operation",
-      dataIndex: "operation",
+      title: "operate",
+      dataIndex: "operate",
       render: (_, record) =>
         data.length >= 1 ? (
           <Popconfirm
             title="确定删除吗?"
+            style={{ textAlign: "center" }}
             onConfirm={() => handleDelete(record.key)}
           >
-            <a href="##">Delete</a>
+            <a href="##">删除</a>
           </Popconfirm>
         ) : null,
     },
+    {
+      title: "operate2",
+      dataIndex: "operate2",
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              修改
+            </Typography.Link>
+            <Popconfirm title="确定要取消吗?" onConfirm={cancels}>
+              <a href="##">取消</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            编辑
+          </Typography.Link>
+        );
+      },
+    },
   ];
+
+  // const columns = defaultColumns.map((col) => {
+  //   if (!col.editable) {
+  //     return col;
+  //   }
+  //   return {
+  //     ...col,
+  //     onCell: (record) => ({
+  //       record,
+  //       editable: col.editable,
+  //       dataIndex: col.dataIndex,
+  //       title: col.title,
+  //     }),
+  //   };
+  // });
 
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
@@ -132,12 +262,14 @@ function User() {
       ...col,
       onCell: (record) => ({
         record,
-        editable: col.editable,
+        inputType: col.dataIndex === "age" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
+        editing: isEditing(record),
       }),
     };
   });
+
   return (
     <Form form={form}>
       <Button
@@ -145,7 +277,7 @@ function User() {
         type="primary"
         style={{ marginTop: 20, marginBottom: 20 }}
       >
-        +添加用户
+        + 新增用户
       </Button>
 
       <Modal
@@ -195,6 +327,12 @@ function User() {
       </Modal>
 
       <Table
+        style={{ marginTop: 10 }}
+        components={{
+          body: {
+            cell: EditableCell,
+          },
+        }}
         bordered
         loading={loading}
         dataSource={data}
