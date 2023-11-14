@@ -27,7 +27,7 @@ export function getMenuRequest() {
   });
 }
 
-// 获取用户信息
+// 获取个人信息
 export function getUserInfo() {
   return new Promise(async (resolve, reject) => {
     const res = await axios.get("/userinfo");
@@ -80,5 +80,13 @@ export function getPieCharts() {
   return new Promise(async (resolve, reject) => {
     const res = await axios.get("/pieCharts");
     resolve(res.data);
+  });
+}
+
+// 获取用户列表数据
+export function getUserData() {
+  return new Promise(async (resolve, reject) => {
+    const res = await axios.get("/userData");
+    resolve(res.data.data);
   });
 }

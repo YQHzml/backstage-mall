@@ -1,5 +1,207 @@
-function Login() {
-  return <div>user</div>;
-}
+import React, { useEffect, useState } from "react";
+import {
+  Form,
+  Table,
+  Popconfirm,
+  Button,
+  Modal,
+  Input,
+  DatePicker,
+} from "antd";
+import { useAppDispatch, useAppSelector } from "../../store";
+import {
+  get_user_list,
+  select_user_list,
+  select_user_loading,
+} from "../../store/slice/user";
+import { Random } from "mockjs";
+import moment from "moment";
 
-export default Login;
+function User() {
+  const dispatch = useAppDispatch();
+  const user_list = useAppSelector(select_user_list);
+  const loading = useAppSelector(select_user_loading);
+  const [form] = Form.useForm();
+  const [isModal, setIsModal] = useState(false);
+
+  const user_list_data = user_list.map((item) => {
+    return {
+      key: item.id,
+      name: item.name,
+      sex: item.sex === "0" ? "男" : "女",
+      age: item.age,
+      birth: item.birth,
+      address: item.address,
+    };
+  });
+
+  const [data, setData] = useState(user_list_data);
+
+  useEffect(() => {
+    setData(user_list_data);
+  }, [user_list]);
+
+  useEffect(() => {
+    if (!user_list || user_list.length === 0) {
+      dispatch(get_user_list());
+    }
+  }, [dispatch, user_list]);
+
+  const handleDelete = (key) => {
+    const newData = data.filter((item) => item.key !== key);
+    setData(newData);
+  };
+
+  const handleAdd = () => {
+    setIsModal(true);
+  };
+
+  const handleOk = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        const newUser = {
+          id: Random.guid,
+          name: values.name,
+          sex: values.sex,
+          age: values.age,
+          birth: moment(values.birth).format("YYYY-MM-DD"),
+          address: values.address,
+        };
+        setData([...data, newUser]);
+        console.log(newUser.birth);
+        form.resetFields();
+        setIsModal(false);
+      })
+      .catch((errorInfo) => {
+        console.log("Validation Failed:", errorInfo);
+      });
+  };
+
+  const onCancel = () => {
+    setIsModal(false);
+    form.resetFields();
+  };
+
+  const defaultColumns = [
+    {
+      title: "name",
+      dataIndex: "name",
+      width: "15%",
+    },
+    {
+      title: "sex",
+      dataIndex: "sex",
+      width: "10%",
+    },
+    {
+      title: "age",
+      dataIndex: "age",
+      width: "10%",
+    },
+    {
+      title: "birth",
+      dataIndex: "birth",
+      width: "15%",
+    },
+    {
+      title: "address",
+      dataIndex: "address",
+      width: "30%",
+    },
+    {
+      title: "operation",
+      dataIndex: "operation",
+      render: (_, record) =>
+        data.length >= 1 ? (
+          <Popconfirm
+            title="确定删除吗?"
+            onConfirm={() => handleDelete(record.key)}
+          >
+            <a href="##">Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
+  ];
+
+  const columns = defaultColumns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        editable: col.editable,
+        dataIndex: col.dataIndex,
+        title: col.title,
+      }),
+    };
+  });
+  return (
+    <Form form={form}>
+      <Button
+        onClick={handleAdd}
+        type="primary"
+        style={{ marginTop: 20, marginBottom: 20 }}
+      >
+        +添加用户
+      </Button>
+
+      <Modal
+        title="添加用户"
+        open={isModal}
+        onOk={handleOk}
+        onCancel={onCancel}
+      >
+        <Form form={form} layout="vertical">
+          <Form.Item
+            name="name"
+            label="姓名"
+            rules={[{ required: true, message: "请输入姓名" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="sex"
+            label="性别"
+            rules={[{ required: true, message: "请输入性别" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="age"
+            label="年龄"
+            rules={[{ required: true, message: "请输入年龄" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="birth"
+            label="出生日期"
+            rules={[{ required: true, message: "请输入出生日期" }]}
+          >
+            <DatePicker />
+          </Form.Item>
+          <Form.Item
+            name="address"
+            label="地址"
+            rules={[{ required: true, message: "请输入地址" }]}
+          >
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      <Table
+        bordered
+        loading={loading}
+        dataSource={data}
+        columns={columns}
+        rowClassName="editable-row"
+      />
+    </Form>
+  );
+}
+export default User;

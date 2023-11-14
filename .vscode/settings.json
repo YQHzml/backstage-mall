@@ -3,6 +3,7 @@
         "antd",
         "echarts",
         "hoverable",
+        "Popconfirm",
         "reduxjs"
     ],
     "eslint.nodeEnv": "development"
