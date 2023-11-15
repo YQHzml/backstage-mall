@@ -5,7 +5,15 @@ const initialState = {
   menu: [],
   user_loading: false,
   user_info: {},
-  user_list: [],
+  // 分页查询
+  user_list: {
+    list: [],
+    count: 0,
+    limit: 10,
+    skip: 0,
+    search_params: {},
+    current_page: 1,
+  },
 };
 
 // 获取菜单
@@ -28,7 +36,7 @@ export const get_user_info = createAsyncThunk(
 export const get_user_list = createAsyncThunk(
   "get/userData",
   async (action, state) => {
-    return await getUserData();
+    return await getUserData(action);
   }
 );
 
@@ -43,7 +51,10 @@ export const userSlice = createSlice({
       state.user_info = action.payload;
     },
     set_user_list: (state, action) => {
-      state.user_list = action.payload;
+      state.user_list = {
+        ...state.query_user_list,
+        ...action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -56,7 +67,8 @@ export const userSlice = createSlice({
       })
       .addCase(get_user_list.fulfilled, (state, res) => {
         state.user_loading = false;
-        state.user_list = res.payload;
+        state.user_list.list = res.payload.data;
+        state.user_list.count = res.payload.count;
       })
       .addCase(get_user_info.fulfilled, (state, res) => {
         state.user_info = res.payload;

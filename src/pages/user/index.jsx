@@ -18,7 +18,8 @@ import {
 } from "../../store/slice/user";
 import { Random } from "mockjs";
 import moment from "moment";
-
+import Search from "./userComponents/Search";
+import styles from "./index.module.scss";
 const EditableCell = ({
   editing,
   dataIndex,
@@ -60,12 +61,11 @@ function User() {
   const loading = useAppSelector(select_user_loading);
   const [form] = Form.useForm();
   const [isModal, setIsModal] = useState(false);
-
   const [editingKey, setEditingKey] = useState("");
   const isEditing = (record) => record.key === editingKey;
 
   const user_list_data = useMemo(() => {
-    return user_list.map((item) => ({
+    return user_list.list.map((item) => ({
       key: item.id,
       name: item.name,
       sex: item.sex === "0" ? "男" : "女",
@@ -82,10 +82,10 @@ function User() {
   }, [user_list_data]);
 
   useEffect(() => {
-    if (!user_list || user_list.length === 0) {
-      dispatch(get_user_list());
+    if (!user_list.list || user_list.list.length === 0) {
+      dispatch(get_user_list({}));
     }
-  }, [dispatch, user_list]);
+  }, [dispatch, user_list.list]);
 
   const handleDelete = (key) => {
     const newData = data.filter((item) => item.key !== key);
@@ -160,6 +160,13 @@ function User() {
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
+  };
+
+  const page_change = (count) => {
+    console.log(count);
+    // const skip = PAGE_COUNT * (count - 1);
+    // dispatch(set_user_list({ current_page: count }));
+    // dispatch(get_user_list({ ...user_list.search_params, skip }));
   };
 
   const defaultColumns = [
@@ -239,21 +246,6 @@ function User() {
     },
   ];
 
-  // const columns = defaultColumns.map((col) => {
-  //   if (!col.editable) {
-  //     return col;
-  //   }
-  //   return {
-  //     ...col,
-  //     onCell: (record) => ({
-  //       record,
-  //       editable: col.editable,
-  //       dataIndex: col.dataIndex,
-  //       title: col.title,
-  //     }),
-  //   };
-  // });
-
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
@@ -271,14 +263,17 @@ function User() {
   });
 
   return (
-    <Form form={form}>
-      <Button
-        onClick={handleAdd}
-        type="primary"
-        style={{ marginTop: 20, marginBottom: 20 }}
-      >
-        + 新增用户
-      </Button>
+    <Form form={form} component={false}>
+      <div className={styles.user_middle}>
+        <Button
+          onClick={handleAdd}
+          type="primary"
+          style={{ marginTop: 20, marginBottom: 20 }}
+        >
+          + 新增用户
+        </Button>
+        <Search />
+      </div>
 
       <Modal
         title="添加用户"
@@ -337,7 +332,7 @@ function User() {
         loading={loading}
         dataSource={data}
         columns={columns}
-        rowClassName="editable-row"
+        onChange={page_change}
       />
     </Form>
   );

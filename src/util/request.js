@@ -84,9 +84,9 @@ export function getPieCharts() {
 }
 
 // 获取用户列表数据
-export function getUserData() {
+export function getUserData(body) {
   return new Promise(async (resolve, reject) => {
-    const res = await axios.get("/userData");
-    resolve(res.data.data);
+    const res = await axios.post("/userData", body);
+    resolve(res.data);
   });
 }
