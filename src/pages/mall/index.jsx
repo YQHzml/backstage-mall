@@ -1,5 +1,13 @@
+import React, { useEffect } from "react";
+import { useDrag } from "react-dnd";
+
 function Mall() {
-  return <div>Mall</div>;
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("111");
+    }, 2000);
+  }, []);
+  return <div>mall</div>;
 }
 
 export default Mall;
