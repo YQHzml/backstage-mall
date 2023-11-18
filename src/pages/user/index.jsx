@@ -109,7 +109,6 @@ function User() {
           address: values.address,
         };
         setData([...data, newUser]);
-        console.log(newUser.birth);
         form.resetFields();
         setIsModal(false);
       })

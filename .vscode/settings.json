@@ -3,6 +3,7 @@
         "antd",
         "echarts",
         "hoverable",
+        "kanban",
         "Popconfirm",
         "reduxjs"
     ],
