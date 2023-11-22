@@ -4,12 +4,10 @@ import Droppable from "./droppable";
 import styles from "../index.module.scss";
 import { dataArray } from "./data";
 function Anime() {
-  const [box1, setBox1] = useState(dataArray.first);
-  const [box2, setBox2] = useState(dataArray.second);
-  const [box3, setBox3] = useState(dataArray.three);
-  const [box4, setBox4] = useState(dataArray.four);
-  const [box5, setBox5] = useState(dataArray.five);
-  const [boxList, setBoxList] = useState([box1, box2, box3, box4, box5]);
+  const [boxList, setBoxList] = useState(() => {
+    const { first, second, three, four, five } = dataArray;
+    return [first, second, three, four, five];
+  });
 
   const textData = [
     { text: "日漫女主", id: 1 },
