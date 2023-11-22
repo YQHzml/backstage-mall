@@ -1,5 +1,7 @@
-function Login() {
-  return <div>pagetwo</div>;
+import styles from "./index.module.scss";
+
+function PageOne() {
+  return <div>PageOne</div>;
 }
 
-export default Login;
+export default PageOne;
