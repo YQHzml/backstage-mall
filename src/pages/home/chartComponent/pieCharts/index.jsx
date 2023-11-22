@@ -11,7 +11,6 @@ function PieCharts() {
   const chartContainerRef = useRef();
   const dispatch = useAppDispatch();
   const pieChartData = useAppSelector(select_pie_charts);
-  console.log(pieChartData.data);
   const chartOptions = useMemo(() => {
     if (
       !pieChartData ||

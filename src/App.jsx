@@ -6,7 +6,7 @@ import { routerData } from "./config";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import User from "./pages/user";
-import Mall from "./pages/mall";
+import Anime from "./pages/anime";
 import PageOne from "./pages/pageOne";
 import PageTwo from "./pages/pageTwo";
 
@@ -24,8 +24,8 @@ function App() {
       <Route element={<LayOut />}>
         {/* 主页 */}
         <Route path={routerData.home.path} element={<Home />} />
-        {/* 商品 */}
-        <Route path={routerData.mall.path} element={<Mall />} />
+        {/* 动漫 */}
+        <Route path={routerData.anime.path} element={<Anime />} />
         {/* 用户 */}
         <Route path={routerData.user.path} element={<User />}>
           {" "}

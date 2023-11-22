@@ -108,7 +108,7 @@ function User() {
           birth: moment(values.birth).format("YYYY-MM-DD"),
           address: values.address,
         };
-        setData([...data, newUser]);
+        setData((prev) => [...prev, newUser]);
         form.resetFields();
         setIsModal(false);
       })

@@ -7,9 +7,9 @@ export const routerData = {
     // 首页
     path: "/home",
   },
-  mall: {
+  anime: {
     // 登录
-    path: "/mall",
+    path: "/anime",
   },
   user: {
     // 用户列表
