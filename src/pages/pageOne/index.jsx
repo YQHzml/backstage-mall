@@ -1,7 +1,5 @@
-import styles from "./index.module.scss";
-
 function PageOne() {
-  return <div>PageOne</div>;
+  return <div>pageOne</div>;
 }
 
 export default PageOne;

@@ -1,44 +1,94 @@
 import React, { useState } from "react";
-import Draggable from "./draggable";
-import Droppable from "./droppable";
 import styles from "../index.module.scss";
 import { dataArray } from "./data";
+import { useDrag, useDrop } from "react-dnd";
+
+const ItemTypes = {
+  ITEM: "item",
+};
+
 function Anime() {
-  const [boxList, setBoxList] = useState(() => {
-    const { first, second, three, four, five } = dataArray;
-    return [first, second, three, four, five];
-  });
+  const [data, setData] = useState(dataArray);
 
-  const textData = [
-    { text: "日漫女主", id: 1 },
-    { text: "纯爱女主", id: 2 },
-    { text: "国漫列表", id: 3 },
-    { text: "日漫男主", id: 4 },
-    { text: "特摄剧场", id: 5 },
-  ];
+  const moveItem = (
+    sourceIndex,
+    targetIndex,
+    sourceCategory,
+    targetCategory
+  ) => {
+    const sourceList = [...data[sourceCategory]];
+    const targetList = [...data[targetCategory]];
+    const draggedItem = sourceList[sourceIndex];
 
-  function dropChange(index) {
-    return function (res) {
-      const valList = res.map((item) => item.value);
-      const filteredBox = boxList[index].filter((item) =>
-        valList.includes(item.value)
-      );
-      setBoxList((prevBoxList) => {
-        const newBoxList = [...prevBoxList];
-        newBoxList[index] = filteredBox;
-        return newBoxList;
-      });
-    };
-  }
+    sourceList.splice(sourceIndex, 1);
+    targetList.splice(targetIndex, 0, draggedItem);
+
+    setData((prevData) => ({
+      ...prevData,
+      [sourceCategory]: sourceList,
+      [targetCategory]: targetList,
+    }));
+  };
+
+  const DraggableItem = ({ item, index, category }) => {
+    const [{ isDragging }, drag] = useDrag(
+      () => ({
+        type: ItemTypes.ITEM,
+        item: { id: item.id, index, category },
+        collect: (monitor) => ({
+          isDragging: monitor.isDragging(),
+          opacity: monitor.isDragging() ? 0.5 : 1,
+        }),
+      }),
+      []
+    );
+
+    const [, drop] = useDrop(() => ({
+      accept: ItemTypes.ITEM,
+      drop: (droppedItem) => {
+        if (droppedItem.category !== category) {
+          if (data[category].length === 0) {
+            // 如果列表为空，创建一个新的数组并添加拖拽的项
+            const newList = [droppedItem.item];
+            setData({
+              ...data,
+              [category]: newList,
+            });
+          } else {
+            moveItem(droppedItem.index, index, droppedItem.category, category);
+          }
+        }
+      },
+    }));
+
+    if (isDragging) return null;
+
+    return (
+      <div ref={(node) => drag(drop(node))} className={styles.drag_container}>
+        <div className={styles.drag_name}>
+          <img src={item.img} alt={item.name} />
+          {item.name}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className={styles.Anime}>
-      {textData.map((item, index) => (
-        <Droppable key={item.id} text={item.text} onChange={dropChange(index)}>
-          {boxList[index].map((items) => (
-            <Draggable key={items.id} data={items} />
-          ))}
-        </Droppable>
+      {Object.keys(data).map((category) => (
+        <div key={category}>
+          <div className={styles.drop_container}>
+            <div className={styles.drop_title}>{category}</div>
+            {data[category].map((item, index) => (
+              <DraggableItem
+                key={item.id}
+                item={item}
+                index={index}
+                category={category}
+              />
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   );
