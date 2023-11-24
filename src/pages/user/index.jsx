@@ -10,12 +10,12 @@ import {
   Typography,
   InputNumber,
 } from "antd";
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   get_user_list,
   select_user_list,
   select_user_loading,
-} from "../../store/slice/user";
+} from "@/store/slice/user";
 import { Random } from "mockjs";
 import moment from "moment";
 import Search from "./userComponents/Search";

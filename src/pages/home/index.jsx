@@ -8,14 +8,14 @@ import LineCharts from "./chartComponent/lineCharts";
 import TreeCharts from "./chartComponent/treeCharts";
 import PieCharts from "./chartComponent/pieCharts";
 
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   get_goods_list,
   get_order_data,
   select_goods_list,
   select_loading,
   select_order_data,
-} from "../../store/slice/subject";
+} from "@/store/slice/subject";
 const { Meta } = Card;
 function Home() {
   const dispatch = useAppDispatch();

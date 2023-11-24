@@ -1,10 +1,10 @@
 import { Layout, Menu } from "antd";
 import React, { useEffect, useState } from "react";
-import usePathKey from "../../hooks/usePathKey";
+import usePathKey from "@/hooks/usePathKey";
 import { useNavigate } from "react-router-dom";
-import { select_menu } from "../../store/slice/user";
-import { useAppDispatch, useAppSelector } from "../../store/index";
-import { set_tab_list } from "../../store/slice/subject";
+import { select_menu } from "@/store/slice/user";
+import { useAppDispatch, useAppSelector } from "@/store/index";
+import { set_tab_list } from "@/store/slice/subject";
 const { Sider } = Layout;
 
 function SiderCp() {

@@ -3,9 +3,9 @@ import HeaderTitle from "./assets/header-title.jpg";
 import HeaderUserinfo from "./assets/header-userinfo.jpg";
 import { List, Popover, Dropdown, Button, Avatar, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { LogoutRequest } from "../../util/request";
+import { LogoutRequest } from "@/util/request";
 import { useNavigate } from "react-router-dom";
-import { select_user_info } from "../../store/slice/user";
+import { select_user_info } from "@/store/slice/user";
 import { useSelector } from "react-redux";
 
 const { Text } = Typography;

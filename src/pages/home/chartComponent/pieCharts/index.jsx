@@ -1,10 +1,7 @@
 import { Card } from "antd";
 import * as echarts from "echarts";
-import { useAppDispatch, useAppSelector } from "../../../../store";
-import {
-  get_pie_charts,
-  select_pie_charts,
-} from "../../../../store/slice/subject";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { get_pie_charts, select_pie_charts } from "@/store/slice/subject";
 import { useEffect, useMemo, useRef } from "react";
 
 function PieCharts() {

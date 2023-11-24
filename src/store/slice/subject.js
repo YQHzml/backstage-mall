@@ -6,7 +6,7 @@ import {
   getPieCharts,
   getTabList,
   getTreeCharts,
-} from "../../util/request";
+} from "@/util/request";
 const initialState = {
   loading: false,
   menu: [],

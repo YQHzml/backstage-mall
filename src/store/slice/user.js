@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getMenuRequest, getUserData, getUserInfo } from "../../util/request";
+import { getMenuRequest, getUserData, getUserInfo } from "@/util/request";
 
 const initialState = {
   menu: [],

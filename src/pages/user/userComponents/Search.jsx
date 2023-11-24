@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AutoComplete, Input } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { get_user_list, select_user_list } from "../../../store/slice/user";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { get_user_list, select_user_list } from "@/store/slice/user";
 
 function SearchComponent() {
   const dispatch = useAppDispatch();

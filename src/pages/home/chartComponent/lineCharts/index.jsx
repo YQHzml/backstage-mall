@@ -1,10 +1,7 @@
 import { useEffect, useRef, useMemo } from "react";
 import * as echarts from "echarts";
-import { useAppDispatch, useAppSelector } from "../../../../store";
-import {
-  get_line_charts,
-  select_line_charts,
-} from "../../../../store/slice/subject";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { get_line_charts, select_line_charts } from "@/store/slice/subject";
 import { Card } from "antd";
 
 function LineCharts() {

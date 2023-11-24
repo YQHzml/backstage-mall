@@ -3,8 +3,8 @@ import login_left from "./assets/login-left.png";
 import { Button, Form, Input, message } from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LoginPost } from "../../util/request";
-import { set_user_info } from "../../store/slice/user";
+import { LoginPost } from "@/util/request";
+import { set_user_info } from "@/store/slice/user";
 
 function Login() {
   const [form] = Form.useForm();
