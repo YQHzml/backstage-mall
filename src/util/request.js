@@ -5,7 +5,7 @@ export function LoginPost(data) {
   //返回一个 promise 对象
   return new Promise(async (resolve, reject) => {
     const res = await axios.post("/login", data);
-    resolve(res.data.data);
+    resolve(res.data);
   });
 }
 

@@ -25,6 +25,7 @@ function Header() {
 
   async function logout() {
     await LogoutRequest();
+    localStorage.removeItem("token");
     navigate("/login");
   }
 

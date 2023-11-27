@@ -43,23 +43,31 @@ function Anime() {
       []
     );
 
-    const [, drop] = useDrop(() => ({
-      accept: ItemTypes.ITEM,
-      drop: (droppedItem) => {
-        if (droppedItem.category !== category) {
-          if (data[category].length === 0) {
-            // 如果列表为空，创建一个新的数组并添加拖拽的项
-            const newList = [droppedItem.item];
-            setData({
-              ...data,
-              [category]: newList,
-            });
-          } else {
-            moveItem(droppedItem.index, index, droppedItem.category, category);
+    const [, drop] = useDrop(
+      () => ({
+        accept: ItemTypes.ITEM,
+        drop: (droppedItem) => {
+          if (droppedItem.category !== category) {
+            if (data[category].length === 0) {
+              // 如果列表为空，创建一个新的数组并添加拖拽的项
+              const newList = [droppedItem.item];
+              setData({
+                ...data,
+                [category]: newList,
+              });
+            } else {
+              moveItem(
+                droppedItem.index,
+                index,
+                droppedItem.category,
+                category
+              );
+            }
           }
-        }
-      },
-    }));
+        },
+      }),
+      []
+    );
 
     if (isDragging) return null;
 

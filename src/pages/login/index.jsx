@@ -20,9 +20,11 @@ function Login() {
     dispatch(set_user_info(user_info));
 
     if (
-      user_info.phone === value.phone &&
-      user_info.password === value.password
+      user_info.data.phone === value.phone &&
+      user_info.data.password === value.password
     ) {
+      localStorage.setItem("name", user_info.data.name);
+      localStorage.setItem("token", user_info.token);
       navigate("/home");
       message.success("登陆成功");
     } else {
