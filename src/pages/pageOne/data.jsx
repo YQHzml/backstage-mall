@@ -14,9 +14,9 @@ import violets from "./assets/perInfo/10.png";
 import violet2 from "./assets/perInfo/11.png";
 import violet3 from "./assets/perInfo/12.png";
 
-import daring from "./assets/perInfo/13.png";
-import daring2 from "./assets/perInfo/14.png";
-import daring3 from "./assets/perInfo/15.png";
+import darling from "./assets/perInfo/13.png";
+import darling2 from "./assets/perInfo/14.png";
+import darling3 from "./assets/perInfo/15.png";
 
 export const dataArray = [
   {
@@ -153,20 +153,20 @@ export const dataArray = [
     RoleIntroduction: [
       {
         name: "广",
-        img: daring,
+        img: darling,
         dub: "上村祐翔",
         introduce:
           "过去曾被称作神童,但现在却成了吊车尾驾驶员。在米斯特汀当中,烦恼着自己的容身之所。",
       },
       {
         name: "02",
-        img: daring2,
+        img: darling2,
         dub: "户松遥",
         introduce: "长有红色的角的神秘少女。 拥有“队友杀手”别名的精英驾驶员。",
       },
       {
         name: "莓",
-        img: daring3,
+        img: darling3,
         dub: "市之濑加那",
         introduce: "孩子们的领袖,可靠的优等生。总是很在意青梅竹马的广。",
       },
