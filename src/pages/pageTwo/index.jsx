@@ -1,5 +1,7 @@
-function Login() {
-  return <div>pageone</div>;
-}
+import React from "react";
 
-export default Login;
+const pageTwo = () => {
+  return <div>pageTwo</div>;
+};
+
+export default pageTwo;

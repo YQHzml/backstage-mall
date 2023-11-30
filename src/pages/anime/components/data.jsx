@@ -30,20 +30,20 @@ export const dataArray = {
   ],
   动漫男主: [
     { id: 7, name: "一方通行", img: img7 },
-    { id: 8, name: "利威尔", img: img8 },
+    { id: 8, name: "利威尔兵长", img: img8 },
     { id: 9, name: "宇智波佐助", img: img9 },
     { id: 10, name: "桐谷和人", img: img10 },
   ],
   国漫列表: [
     { id: 11, name: "画江湖之不良人", img: img11 },
-    { id: 12, name: "斗破苍穹", img: img12 },
+    { id: 12, name: "美杜莎女王", img: img12 },
     { id: 13, name: "狐妖小红娘", img: img13 },
     { id: 14, name: "吞噬星空", img: img14 },
   ],
   特摄剧场: [
-    { id: 15, name: "假面骑士Decade", img: img15 },
+    { id: 15, name: "假面骑士帝骑", img: img15 },
     { id: 16, name: "迪迦奥特曼", img: img16 },
-    { id: 17, name: "龙珠", img: img17 },
+    { id: 17, name: "龙珠超", img: img17 },
     { id: 18, name: "海贼王", img: img18 },
   ],
 };

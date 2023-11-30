@@ -1,12 +1,111 @@
-.bubble {
-  width: 600px;
-  height: 600px;
-  border: 1px solid;
-  background: url(../anime/assets/2.jpg) no-repeat;
+@mixin left_bg {
+  width: 840px;
+  height: 740px;
+  background-size: cover;
+  border-radius: 10px;
+  box-shadow: 2px 2px 18px 7px #afafaf;
 }
-.background1 {
-  width: 600px;
-  height: 600px;
-  border: 1px solid;
-  background: url(../anime/assets/1.jpg) no-repeat;
+
+@mixin pageOne_display {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@mixin right_p {
+  color: rgb(238, 168, 168);
+  margin-bottom: 30px;
+}
+
+.container {
+  margin-top: 10px;
+  display: flex;
+  .left {
+    width: 49%;
+    .left_top {
+      @include pageOne_display;
+      .title {
+        width: 120px;
+        height: 60px;
+        font-size: 18px;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        cursor: pointer;
+        color: white;
+        border: 1px solid #ffbae3;
+        background-color: #f3acb9;
+        text-align: center;
+        @include pageOne_display;
+      }
+      :hover {
+        background-color: rgb(245, 230, 146);
+      }
+    }
+
+    .bg {
+      @include left_bg;
+      background-image: url(../anime/assets/3.jpg);
+    }
+
+    .bg_2 {
+      @include left_bg;
+      background-image: url(./assets/1.jpg);
+    }
+    .bg_3 {
+      @include left_bg;
+      background-image: url(../anime/assets/4.jpg);
+    }
+    .bg_4 {
+      @include left_bg;
+      background-image: url(../anime/assets/5.jpg);
+    }
+    .bg_5 {
+      @include left_bg;
+      background-image: url(./assets/2.jpg);
+    }
+  }
+  .right {
+    width: 49%;
+    margin-left: 2%;
+
+    .right_top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .title {
+        @include right_p;
+        font-size: 50px;
+        text-shadow: 3px 4px 9px #b7a3a3;
+        letter-spacing: 2rem;
+        font-family: "宋体";
+        margin-top: 20px;
+      }
+      .p1 {
+        @include right_p;
+        font-size: 25px;
+      }
+      .p2 {
+        @include right_p;
+        width: 500px;
+        text-indent: 2em;
+      }
+      .p3 {
+        @include right_p;
+        width: 500px;
+        text-indent: 2em;
+      }
+
+      .below {
+        display: flex;
+        font-size: 12px;
+        width: 100%;
+        justify-content: space-around;
+
+        img {
+          height: 320px;
+        }
+      }
+    }
+  }
 }
