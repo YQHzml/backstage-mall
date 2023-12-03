@@ -1,7 +1,11 @@
 import React from "react";
 
-const pageTwo = () => {
-  return <div>pageTwo</div>;
-};
+function PageTwo() {
+  return (
+    <div>
+      <p>page</p>
+    </div>
+  );
+}
 
-export default pageTwo;
+export default PageTwo;
