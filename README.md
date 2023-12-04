@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+# Create React App 搭建的项目
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Introduction to the project backend 项目介绍
 
-In the project directory, you can run:
+项目的话是前后端分离的,接口使用的是apifox创建接口,所以没有跨域问题.
+目前的话是准备开发五个页面,后续应该会逐渐增加,界面样式的话也会逐渐美化.
+
+
+## Available Scripts 可用脚本
+
+In the project directory, you can run: 在项目中你可以运行的：
 
 ### `npm start`
 
@@ -28,6 +34,9 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run serve`
+静态资源部署的脚本
 
 ### `npm run eject`
 
