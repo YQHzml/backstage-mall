@@ -290,7 +290,7 @@ function User() {
       </div>
 
       <Modal
-        title="添加用户"
+        title="用户信息"
         open={isModal}
         onOk={handleOk}
         onCancel={onCancel}

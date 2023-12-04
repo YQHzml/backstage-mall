@@ -24,7 +24,7 @@ function LayOut() {
           <Sider />
         </div>
         <div className="outlet_wrap">
-          <BreadCb />
+          <BreadCb className="BreadCb" />
           <Outlet />
         </div>
       </div>

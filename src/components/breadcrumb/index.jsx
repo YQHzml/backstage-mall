@@ -19,7 +19,13 @@ function BreadCb() {
   const tags = breadcrumbItems.map((item) => {
     return { title: item.name };
   });
-  return <Breadcrumb separator=">" items={tags}></Breadcrumb>;
+  return (
+    <Breadcrumb
+      style={{ fontStyle: "italic" }}
+      separator=">"
+      items={tags}
+    ></Breadcrumb>
+  );
 }
 
 export default BreadCb;

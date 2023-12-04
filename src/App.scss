@@ -13,6 +13,10 @@
       background: rgb(237, 236, 236);
       padding: 5px 30px 30px 30px;
       min-height: calc(100vh - 80px);
+      :where(.css-dev-only-do-not-override-qgg3xn).ant-breadcrumb
+        li:last-child {
+        color: #d38b8b;
+      }
     }
   }
 }
