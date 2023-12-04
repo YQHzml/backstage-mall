@@ -261,6 +261,10 @@ function User() {
     };
   });
 
+  const handleSearchResults = (results) => {
+    setData(results);
+  };
+
   return (
     <Form form={form} component={false}>
       <div className={styles.user_middle}>
@@ -271,7 +275,7 @@ function User() {
         >
           + 新增用户
         </Button>
-        <Search />
+        <Search onSearchResults={handleSearchResults} />
       </div>
 
       <Modal

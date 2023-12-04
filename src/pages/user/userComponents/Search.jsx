@@ -3,7 +3,7 @@ import { AutoComplete, Input } from "antd";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { get_user_list, select_user_list } from "@/store/slice/user";
 
-function SearchComponent() {
+function SearchComponent({ onSearchResults }) {
   const dispatch = useAppDispatch();
   const searchData = useAppSelector(select_user_list);
   const [searchText, setSearchText] = useState("");
@@ -21,6 +21,7 @@ function SearchComponent() {
     );
     setSearchText(value);
     setSearchResults(filteredResults);
+    onSearchResults(filteredResults);
   };
 
   return (
@@ -33,7 +34,7 @@ function SearchComponent() {
           value: item.name,
         }))}
       >
-        <Input.Search placeholder="Search by name" enterButton />
+        <Input.Search placeholder="请输入姓名" enterButton />
       </AutoComplete>
     </div>
   );
