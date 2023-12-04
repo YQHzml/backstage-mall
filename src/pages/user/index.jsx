@@ -65,13 +65,13 @@ function User() {
   const isEditing = (record) => record.key === editingKey;
 
   const user_list_data = useMemo(() => {
-    return user_list.list.map((item) => ({
-      key: item.id,
-      name: item.name,
-      sex: item.sex === "0" ? "男" : "女",
-      age: item.age,
-      birth: item.birth,
-      address: item.address,
+    return user_list.list.map(({ id, name, sex, age, birth, address }) => ({
+      key: id,
+      name,
+      sex: sex === "0" ? "男" : "女",
+      age,
+      birth,
+      address,
     }));
   }, [user_list]);
 
@@ -262,7 +262,18 @@ function User() {
   });
 
   const handleSearchResults = (results) => {
-    setData(results);
+    const resultsList = results.map(
+      ({ id, name, sex, age, birth, address }) => ({
+        key: id,
+        name,
+        sex: sex === "0" ? "男" : "女",
+        age,
+        birth,
+        address,
+      })
+    );
+
+    setData(resultsList);
   };
 
   return (
@@ -336,6 +347,7 @@ function User() {
         dataSource={data}
         columns={columns}
         onChange={page_change}
+        key={data.id}
       />
     </Form>
   );
