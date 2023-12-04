@@ -33,7 +33,7 @@ function Header() {
     <div className={styles.header_container}>
       <div className={styles.logo_container}>
         <img src={HeaderTitle} alt="HeaderTitle" />
-        <h1 className={styles.logo_item}>小元闲着没事搭建的后台</h1>
+        <h1 className={styles.logo_item}>小元用react搭建的后台</h1>
       </div>
 
       <div className={styles.info_container}>
