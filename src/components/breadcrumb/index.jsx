@@ -7,8 +7,7 @@ function BreadCb() {
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
 
   useEffect(() => {
-    const pathname = location.pathname;
-    const pathnames = pathname.split("/").filter((item) => item);
+    const pathnames = location.pathname.split("/").filter(Boolean);
     const items = pathnames.map((path, index) => ({
       name: path,
       path: `/${pathnames.slice(0, index + 1).join("/")}`,
@@ -19,6 +18,7 @@ function BreadCb() {
   const tags = breadcrumbItems.map((item) => {
     return { title: item.name };
   });
+
   return (
     <Breadcrumb
       style={{ fontStyle: "italic" }}

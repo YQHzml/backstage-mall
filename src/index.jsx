@@ -6,13 +6,16 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import AuthRoute from "./routers/autuRoute";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthRoute>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </AuthRoute>
     </BrowserRouter>
   </Provider>
