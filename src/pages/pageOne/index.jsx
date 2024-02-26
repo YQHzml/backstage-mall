@@ -20,7 +20,7 @@ function PageOne() {
         key={index}
         className={styles.title}
         onClick={() => handleClick(index + 1, item)}
-        onKeyDown={() => handleClick(index + 1)}
+        role="button"
       >
         {item.title}
       </div>
