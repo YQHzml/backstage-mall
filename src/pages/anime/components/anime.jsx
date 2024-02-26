@@ -6,16 +6,12 @@ import DraggableItem from "./DraggableItem";
 function Anime() {
   const [data, setData] = useState(dataArray);
 
-  const moveItem = (
-    sourceCategory,
-    destCategory,
-    sourceIndex,
-    destIndex,
-    data,
-    setData
-  ) => {
-    const itemToMove = data[sourceCategory][sourceIndex];
+  const moveItem = (sourceCategory, destCategory, sourceIndex, destIndex) => {
+    const itemToMove = { ...data[sourceCategory][sourceIndex] };
     const newData = { ...data };
+    newData[sourceCategory] = [...data[sourceCategory]];
+    newData[destCategory] = [...data[destCategory]];
+
     newData[sourceCategory].splice(sourceIndex, 1);
     newData[destCategory].splice(destIndex, 0, itemToMove);
     setData(newData);
@@ -34,8 +30,6 @@ function Anime() {
                 index={index}
                 category={category}
                 moveItem={moveItem}
-                data={data}
-                setData={setData}
               />
             ))}
           </div>
