@@ -274,6 +274,7 @@ function User() {
     );
 
     setData(resultsList);
+    console.log(results);
   };
 
   return (

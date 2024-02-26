@@ -3,7 +3,15 @@ import { useDrag, useDrop } from "react-dnd";
 import styles from "../index.module.scss";
 
 const DraggableItem = ({ item, index, category, moveItem, data, setData }) => {
-  const ref = useRef(null);
+  const ref = useRef();
+
+  const [{ isDragging }, drag] = useDrag({
+    type: "item",
+    item: { id: item.id, index, category },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
   const [, drop] = useDrop({
     accept: "item",
@@ -35,18 +43,14 @@ const DraggableItem = ({ item, index, category, moveItem, data, setData }) => {
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
-    type: "item",
-    item: { id: item.id, index, category },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
   drag(drop(ref));
 
   return (
-    <div ref={ref} className={styles.drag_container}>
+    <div
+      ref={ref}
+      className={styles.drag_container}
+      style={{ opacity: isDragging ? 0 : 1 }}
+    >
       <div className={styles.drag_name}>
         <img src={item.img} alt={item.name} />
         {item.name}

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.43",
     "@babel/core": "^7.23.3",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.23.3",
@@ -45,6 +46,7 @@
     "mini-css-extract-plugin": "^2.4.5",
     "mockjs": "^1.1.0",
     "moment": "^2.29.4",
+    "pinyin": "^4.0.0-alpha.0",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",

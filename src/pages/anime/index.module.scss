@@ -43,5 +43,9 @@
       border-radius: 16px;
       margin-right: 20px;
     }
+    .drag_name.selected {
+      background-color: transparent;
+    }
   }
+ 
 }

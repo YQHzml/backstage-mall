@@ -12,5 +12,6 @@
         "Popconfirm",
         "reduxjs"
     ],
-    "eslint.nodeEnv": "development"
+    "eslint.nodeEnv": "development",
+    "editor.fontSize": 16
 }
