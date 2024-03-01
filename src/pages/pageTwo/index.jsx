@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
-import Modal from "./modal";
 import axios from "../../util/http";
 import {
   ProForm,
@@ -8,6 +7,9 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 import { Button } from "antd";
+// 测试
+import Modal from "./components/modal";
+import Child from "./components/child";
 
 function PageTwo() {
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +17,11 @@ function PageTwo() {
   const [modalText, setModalText] = useState("内容区域");
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const titleInputRef = useRef();
-  console.log(titleInputRef.current);
+  const childRef = useRef();
+
+  const handleClickChild = () => {
+    childRef.current.handleClick();
+  };
   const openModal = () => {
     setShowModal(true);
   };
@@ -26,10 +32,6 @@ function PageTwo() {
 
   const handleTitleClick = () => {
     setIsEditingTitle(true);
-
-    // setTimeout(() => {
-    //   titleInputRef.current.focus();
-    // }, 0);
   };
   useEffect(() => {
     if (isEditingTitle) {
@@ -49,16 +51,10 @@ function PageTwo() {
 
   const handleConfirm = async () => {
     try {
-      // 发起POST请求
-      // const response = await axios.post(
-      //   "http://127.00.1:4000/api/tasks",
-      //   requestData
-      // );
-
       await axios.post("http://127.0.0.2:4000/api/tasks").then((response) => {
         // 请求成功后的处理逻辑
         const { title, text } = response.data.data;
-        console.log(title, text);
+
         setModalTitle(title);
         setModalText(text);
         if (modalTitle || modalText) {
@@ -84,21 +80,27 @@ function PageTwo() {
       <Button onClick={openModal}>打开Modal</Button>
       <Modal showModal={showModal} setShowModal={closeModal}>
         {isEditingTitle ? (
-          <ProFormText
-            value={modalTitle}
-            className={styles.title_input}
-            fieldProps={{
-              onBlur: handleTitleBlur,
-              onKeyUp: handleKeyDown,
-              onChange: handleTitleChange,
-              ref: titleInputRef,
-            }}
-          />
+          <ProForm submitter={false}>
+            <ProFormText
+              width="sm"
+              value={modalTitle}
+              className={styles.title_input}
+              fieldProps={{
+                onBlur: handleTitleBlur,
+                onKeyUp: handleKeyDown,
+                onChange: handleTitleChange,
+                ref: titleInputRef,
+              }}
+            />
+          </ProForm>
         ) : (
           <h2 onClick={handleTitleClick} className={styles.title}>
             {modalTitle}
           </h2>
         )}
+        <span className={styles.close} onClick={closeModal}>
+          X
+        </span>
         <ProFormTextArea
           value={modalText}
           onChange={(e) => setModalText(e.target.value)}
@@ -119,13 +121,9 @@ function PageTwo() {
           </Button>
         </div>
       </Modal>
-      <ProForm
-        onFinish={async (values) => {
-          console.log(values);
-        }}
-      >
-        <ProFormText label="姓名" name="name" />
-      </ProForm>
+      <br />
+      <Child ref={childRef} />
+      <Button onClick={handleClickChild}>父组件</Button>
     </div>
   );
 }
