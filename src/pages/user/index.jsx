@@ -163,9 +163,12 @@ function User() {
 
   const page_change = (count) => {
     console.log(count);
+    // 假设每页显示10条数据
+    // const PAGE_COUNT = 10;
+    // // 计算需要跳过的数据条目数
     // const skip = PAGE_COUNT * (count - 1);
-    // dispatch(set_user_list({ current_page: count }));
-    // dispatch(get_user_list({ ...user_list.search_params, skip }));
+    // // 调用action来获取对应页数的用户列表数据
+    // dispatch(get_user_list({ skip }));
   };
 
   const defaultColumns = [
