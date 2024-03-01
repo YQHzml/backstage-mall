@@ -10,7 +10,7 @@ const child = forwardRef((props, ref) => {
   React.useImperativeHandle(ref, () => ({
     handleClick,
   }));
-  return <Button>子组件{count}</Button>;
+  return <Button>子组件:{count}</Button>;
 });
 
 export default child;
