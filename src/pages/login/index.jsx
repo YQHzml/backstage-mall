@@ -47,7 +47,7 @@ function Login() {
         </div>
         {/* 右侧 */}
         <div className={styles.login_right}>
-          <div className={styles.right_title}>小元商城后台</div>
+          <div className={styles.right_title}>小元后台管理</div>
           <div className={styles.right_form}>
             <Form
               onFinish={onLogin}

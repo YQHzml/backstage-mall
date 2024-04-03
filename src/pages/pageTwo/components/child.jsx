@@ -3,6 +3,7 @@ import React, { forwardRef, useState } from "react";
 
 const child = forwardRef((props, ref) => {
   const [count, setCount] = useState(0);
+  const { handleClickParent } = props;
 
   const handleClick = () => {
     setCount((prev) => prev + 1);
@@ -10,7 +11,7 @@ const child = forwardRef((props, ref) => {
   React.useImperativeHandle(ref, () => ({
     handleClick,
   }));
-  return <Button>子组件:{count}</Button>;
+  return <Button onClick={handleClickParent}>子组件:{count}</Button>;
 });
 
 export default child;

@@ -10,18 +10,25 @@ import { Button } from "antd";
 // 测试
 import Modal from "./components/modal";
 import Child from "./components/child";
+import AntdPro from "./components/antdPro";
 
-function PageTwo() {
+const PageTwo = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("Modal组件");
   const [modalText, setModalText] = useState("内容区域");
   const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [parentCount, setParentCount] = useState(0);
   const titleInputRef = useRef();
   const childRef = useRef();
 
   const handleClickChild = () => {
     childRef.current.handleClick();
   };
+
+  const handleClickParent = () => {
+    setParentCount((prev) => prev + 1);
+  };
+
   const openModal = () => {
     setShowModal(true);
   };
@@ -54,7 +61,6 @@ function PageTwo() {
       await axios.post("http://127.0.0.2:4000/api/tasks").then((response) => {
         // 请求成功后的处理逻辑
         const { title, text } = response.data.data;
-
         setModalTitle(title);
         setModalText(text);
         if (modalTitle || modalText) {
@@ -122,10 +128,13 @@ function PageTwo() {
         </div>
       </Modal>
       <br />
-      <Child ref={childRef} />
-      <Button onClick={handleClickChild}>父组件</Button>
+      {/* 父子组件通信 */}
+      <Child ref={childRef} handleClickParent={handleClickParent} />
+      <Button onClick={handleClickChild}>父组件:{parentCount}</Button>
+      {/* antdPro组件 */}
+      <AntdPro />
     </div>
   );
-}
+};
 
 export default PageTwo;
